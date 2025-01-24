@@ -13,12 +13,12 @@ function numeroCasuale(nelementi) {
 function veroFalso(rispostaContainer, rispostaEsatta, count){
   const checkboxTrue = document.createElement("input");
   checkboxTrue.type = "radio";
-  checkboxTrue.name= count
+  checkboxTrue.name= "r"+ count
   checkboxTrue.id = `risposta-${Math.random().toString(36).substr(2, 9)}`;
   checkboxTrue.setAttribute('data-correct', rispostaEsatta  === "True" ? 'true' : 'false');
   const checkboxFalse = document.createElement("input");
   checkboxFalse.type = "radio";
-  checkboxFalse.name= count
+  checkboxFalse.name= "r"+ count
   checkboxFalse.id = `risposta-${Math.random().toString(36).substr(2, 9)}`;
   checkboxFalse.setAttribute('data-correct', rispostaEsatta  === "False" ? 'true' : 'false');
   const labelTrue = document.createElement("label");
@@ -28,22 +28,22 @@ function veroFalso(rispostaContainer, rispostaEsatta, count){
   labelFalse.setAttribute("for", checkboxFalse.id); // Collega l'etichetta alla checkbox tramite l'ID
   labelFalse.textContent = "falso";
   rispostaContainer.appendChild(labelTrue)
-  rispostaContainer.appendChild(checkboxTrue)
+  labelTrue.appendChild(checkboxTrue)
   rispostaContainer.appendChild(labelFalse)
-  rispostaContainer.appendChild(checkboxFalse)
+  labelFalse.appendChild(checkboxFalse)
 }
 
 function inserisciRisposte(rispostaContainer, unaRisposta, rispostaEsatta, count){
   const checkboxRisposta = document.createElement("input");
   checkboxRisposta.type = "radio";
-  checkboxRisposta.name= count
+  checkboxRisposta.name= "r"+ count
   checkboxRisposta.id = `risposta-${Math.random().toString(36).substr(2, 9)}`;
   checkboxRisposta.setAttribute('data-correct', unaRisposta === rispostaEsatta ? 'true' : 'false');
   const labelRisposta = document.createElement("label");
   labelRisposta.setAttribute("for", checkboxRisposta.id); // Collega l'etichetta alla checkbox tramite l'ID
   labelRisposta.textContent = unaRisposta;
   rispostaContainer.appendChild(labelRisposta)
-  rispostaContainer.appendChild(checkboxRisposta)
+  labelRisposta.appendChild(checkboxRisposta)
 }
 
 
@@ -102,15 +102,27 @@ async function creaQuiz() {
 
 crea.addEventListener("click", ()=>{
   creaQuiz()
+  correggi.style.display="block"
 })
 
-correggi.addEventListener("click", ()=>{
-  const risposteSelezionate = document.querySelectorAll('input[type="radio"]:checked');
+correggi.addEventListener("click", ()=>{ 
+  const contenitoreRisposte = document.querySelectorAll(".-container-risposta")
   let risposteGiuste = 0
-  risposteSelezionate.forEach(function(Element){
-    if(Element.getAttribute("data-correct") == "true"){
+  for (let i = 1;i<=10;i++){
+    const rispostaSelezionata = document.querySelector(`input[name="r${i}"]:checked` )
+    if (rispostaSelezionata == null){
+      return alert("non hai selezionato la risposta nella domanda "+i)
+    }else if (rispostaSelezionata.getAttribute("data-correct") == "true"){
       risposteGiuste+=1
-    }
-  })
-  console.log(risposteGiuste)
+    } else if (rispostaSelezionata.getAttribute("data-correct") != "true") {
+      let rispostaGiustaRadio = document.querySelector(`input[name="r${i}"][data-correct="true"]`)
+      idLabelGiusto = rispostaGiustaRadio.id
+      let rispostaGiustaLabel = document.querySelector(`label[for="${idLabelGiusto}"]`)
+       let correzione = document.createElement("h3")
+       correzione.textContent ="la risposta corretta era"+ rispostaGiustaLabel.textContent
+       contenitoreRisposte[i-1].appendChild(correzione)
+    } 
+  }
+  console.log("hai fatto"+risposteGiuste+"risposte giuste")  
 })
+

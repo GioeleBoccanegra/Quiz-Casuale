@@ -161,6 +161,10 @@ input[type="checkbox"]:focus {
   background-color: #003366;
 }
 
+.button-correggi-quiz{
+  display: none;
+}
+
 /* Media Queries per dispositivi mobili */
 @media screen and (max-width: 768px) {
   .quiz-container {
