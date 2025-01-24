@@ -165,6 +165,10 @@ input[type="checkbox"]:focus {
   display: none;
 }
 
+.button-nuovo-quiz{
+  display: none;
+}
+
 /* Media Queries per dispositivi mobili */
 @media screen and (max-width: 768px) {
   .quiz-container {

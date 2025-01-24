@@ -1,9 +1,10 @@
 const crea =document.querySelector("[data-crea-quiz]")
 const container = document.querySelector("[data-quiz-containeer]")
 const correggi = document.querySelector("[data-correggi-quiz]")
+const nuovoQuiz = document.querySelector("[data-nuovo-quiz]")
 
-function nascondiPulsante(){
-  crea.style.display = "none"
+function nascondiPulsante(pulsante){
+  pulsante.style.display = "none"
 }
 
 function numeroCasuale(nelementi) {
@@ -84,7 +85,7 @@ for(let i = 0; i<response.data.results.length;i++){
 }
 async function creaQuiz() {
   try {
-    nascondiPulsante()
+    nascondiPulsante(crea)
     const result = await axios.get("https://opentdb.com/api.php?amount=10");
       getDomanda(result)
   } catch (error) {
@@ -99,13 +100,16 @@ async function creaQuiz() {
   }
 }
 
+function correggiRisposte(contenitoreRisposte, i){
+  let rispostaGiustaRadio = document.querySelector(`input[name="r${i}"][data-correct="true"]`)
+  let idLabelGiusto = rispostaGiustaRadio.id
+  let rispostaGiustaLabel = document.querySelector(`label[for="${idLabelGiusto}"]`)
+   let correzione = document.createElement("h3")
+   correzione.textContent ="la risposta corretta era: "+ rispostaGiustaLabel.textContent
+   contenitoreRisposte[i-1].appendChild(correzione)
+}
 
-crea.addEventListener("click", ()=>{
-  creaQuiz()
-  correggi.style.display="block"
-})
-
-correggi.addEventListener("click", ()=>{ 
+function controllaRisposte(){
   const contenitoreRisposte = document.querySelectorAll(".-container-risposta")
   let risposteGiuste = 0
   for (let i = 1;i<=10;i++){
@@ -115,14 +119,31 @@ correggi.addEventListener("click", ()=>{
     }else if (rispostaSelezionata.getAttribute("data-correct") == "true"){
       risposteGiuste+=1
     } else if (rispostaSelezionata.getAttribute("data-correct") != "true") {
-      let rispostaGiustaRadio = document.querySelector(`input[name="r${i}"][data-correct="true"]`)
-      idLabelGiusto = rispostaGiustaRadio.id
-      let rispostaGiustaLabel = document.querySelector(`label[for="${idLabelGiusto}"]`)
-       let correzione = document.createElement("h3")
-       correzione.textContent ="la risposta corretta era"+ rispostaGiustaLabel.textContent
-       contenitoreRisposte[i-1].appendChild(correzione)
+      correggiRisposte(contenitoreRisposte,i)
     } 
   }
-  console.log("hai fatto"+risposteGiuste+"risposte giuste")  
+  console.log("hai fatto "+risposteGiuste+" risposte giuste")  
+  nascondiPulsante(correggi)
+  mostraPulsante(nuovoQuiz)
+}
+
+function mostraPulsante(pulsante){
+pulsante.style.display = "block"
+}
+
+
+
+
+crea.addEventListener("click", ()=>{
+  creaQuiz()
+  mostraPulsante(correggi)
+})
+
+correggi.addEventListener("click", ()=>{ 
+  controllaRisposte()
+ })
+
+nuovoQuiz.addEventListener("click",()=>{
+  mostraPulsante(crea)
 })
 
