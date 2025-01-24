@@ -3,28 +3,29 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
 }
 
 /* Corpo */
 body {
-  font-family: 'Arial', sans-serif;
   background-color: #f4f7fb;
   display: flex;
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
-  margin: 0;
-  padding: 0;
+  padding: 20px;
+  font-size: 16px;
+  color: #333;
 }
 
 /* Header */
 header {
   width: 100%;
-  background-color: #1e3a8a; /* Colore più scuro */
+  background-color: #1e3a8a; /* Colore blu scuro */
   color: white;
   text-align: center;
   padding: 20px 0;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   z-index: 10;
   position: sticky;
   top: 0;
@@ -34,30 +35,29 @@ h1 {
   font-size: 2.5rem;
   font-weight: bold;
   letter-spacing: 1px;
+  text-transform: uppercase;
 }
 
 /* Main e contenitore */
 main {
   width: 100%;
   max-width: 900px;
-  padding: 20px;
+  padding: 30px;
   margin-top: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
+  gap: 30px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 /* Contenitore del quiz */
 .quiz-container {
   width: 100%;
   max-width: 800px;
-  background-color: #ffffff;
-  border-radius: 12px;
-  padding: 30px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  margin-top: 20px;
-  overflow: hidden;
+  padding: 20px;
   display: none; /* Nascondi inizialmente */
 }
 
@@ -65,118 +65,77 @@ main {
 .domanda-container {
   margin-bottom: 20px;
   padding: 20px;
-  border: 1px solid #e0e0e0;
   border-radius: 10px;
   background-color: #f9f9f9;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e0e0e0;
 }
 
 .domanda {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   font-weight: 600;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   color: #333333;
   letter-spacing: 0.5px;
 }
 
+/* Contenitore risposte */
 .risposta-container {
   display: flex;
   flex-direction: column;
-  gap: 12px; /* Maggiore spazio tra le opzioni */
+  gap: 15px; /* Spaziatura tra le opzioni */
 }
 
-/* Stile base per le etichette */
 label {
   font-size: 1rem;
-  color: #333333;
+  color: #444;
   cursor: pointer;
-  transition: color 0.3s ease, transform 0.3s ease;
   display: inline-flex;
   align-items: center;
   gap: 10px; /* Distanza tra la checkbox e l'etichetta */
-  font-weight: 500;
-  padding: 5px 10px;
+  padding: 10px 15px;
   border-radius: 8px;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 label:hover {
-  background-color: #e0e0e0;
+  background-color: #f0f4ff;
   color: #1e3a8a;
+  transform: scale(1.05);
 }
 
-/* Personalizzazione delle checkbox */
+/* Personalizzazione delle checkbox quadrate */
 input[type="checkbox"] {
   appearance: none; /* Rimuove la checkbox di default */
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
   background-color: #fff;
   border: 2px solid #ccc;
-  border-radius: 5px;
+  border-radius: 4px; /* Checkbox quadrate */
   position: relative;
-  transition: background-color 0.3s ease, border-color 0.3s ease;
   cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 input[type="checkbox"]:checked {
-  background-color: #1e3a8a; /* Colore di sfondo quando è selezionato */
+  background-color: #1e3a8a; /* Colore blu quando selezionato */
   border-color: #1e3a8a;
 }
 
 input[type="checkbox"]:checked::before {
   content: '';
   position: absolute;
-  top: 3px;
-  left: 3px;
-  width: 10px;
-  height: 10px;
-  background-color: #fff;
-  border-radius: 50%; /* Aggiunge un "ticking" cerchio bianco all'interno della checkbox */
+  top: 4px;
+  left: 4px;
+  width: 12px;
+  height: 12px;
+  background-color: white;
+  border-radius: 2px; /* "Tick" quadrato dentro la checkbox */
 }
 
 input[type="checkbox"]:focus {
   outline: none;
   box-shadow: 0 0 5px rgba(30, 58, 138, 0.5);
-}
-
-input[type="checkbox"]:hover {
-  border-color: #1e3a8a;
-}
-
-/* Stile delle risposte nella sezione quiz */
-.risposta-container {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.risposta-container label {
-  font-size: 1.1rem;
-  color: #444444;
-  background-color: #f9f9f9;
-  padding: 10px;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.3s ease;
-}
-
-.risposta-container label:hover {
-  background-color: #e0e0e0;
-  color: #1e3a8a;
-}
-
-.risposta-container input[type="checkbox"]:checked + label {
-  background-color: #d1e7ff;
-  color: #1e3a8a;
-}
-
-/* Aggiunta di un effetto di transizione sui checkbox */
-input[type="checkbox"] {
-  transition: transform 0.2s ease-in-out;
-}
-
-input[type="checkbox"]:hover {
-  transform: scale(1.1); /* Leggera espansione quando l'utente passa sopra */
 }
 
 /* Pulsante per creare il quiz */
@@ -188,7 +147,6 @@ input[type="checkbox"]:hover {
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  margin-top: 20px;
   transition: background-color 0.3s ease, transform 0.3s ease;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -206,7 +164,7 @@ input[type="checkbox"]:hover {
 /* Media Queries per dispositivi mobili */
 @media screen and (max-width: 768px) {
   .quiz-container {
-    padding: 20px;
+    padding: 15px;
   }
 
   .domanda {

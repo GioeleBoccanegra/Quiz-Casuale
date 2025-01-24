@@ -1,8 +1,6 @@
-
-
 const crea =document.querySelector("[data-crea-quiz]")
 const container = document.querySelector("[data-quiz-containeer]")
-
+const correggi = document.querySelector("[data-correggi-quiz]")
 
 function nascondiPulsante(){
   crea.style.display = "none"
@@ -87,7 +85,7 @@ for(let i = 0; i<response.data.results.length;i++){
 async function creaQuiz() {
   try {
     nascondiPulsante()
-    const result = await axios.get("https://opentdb.com/api.php?amount=50");
+    const result = await axios.get("https://opentdb.com/api.php?amount=10");
       getDomanda(result)
   } catch (error) {
     if (error.response && error.response.status === 429) {
@@ -104,4 +102,15 @@ async function creaQuiz() {
 
 crea.addEventListener("click", ()=>{
   creaQuiz()
+})
+
+correggi.addEventListener("click", ()=>{
+  const risposteSelezionate = document.querySelectorAll('input[type="radio"]:checked');
+  let risposteGiuste = 0
+  risposteSelezionate.forEach(function(Element){
+    if(Element.getAttribute("data-correct") == "true"){
+      risposteGiuste+=1
+    }
+  })
+  console.log(risposteGiuste)
 })
