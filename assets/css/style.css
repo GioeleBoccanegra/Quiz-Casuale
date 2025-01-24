@@ -6,9 +6,8 @@
   font-family: 'Arial', sans-serif;
 }
 
-/* Corpo */
 body {
-  background-color: #f4f7fb;
+  background-color: #eef2f7;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -21,7 +20,7 @@ body {
 /* Header */
 header {
   width: 100%;
-  background-color: #1e3a8a; /* Colore blu scuro */
+  background: linear-gradient(135deg, #1e3a8a, #4f6d98);
   color: white;
   text-align: center;
   padding: 20px 0;
@@ -29,6 +28,7 @@ header {
   z-index: 10;
   position: sticky;
   top: 0;
+  border-radius: 0 0 10px 10px;
 }
 
 h1 {
@@ -49,26 +49,23 @@ main {
   align-items: center;
   gap: 30px;
   background-color: #ffffff;
-  border-radius: 12px;
+  border-radius: 15px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
-/* Contenitore del quiz */
 .quiz-container {
   width: 100%;
   max-width: 800px;
   padding: 20px;
-  display: none; /* Nascondi inizialmente */
+  display: none;
 }
 
-/* Domanda e risposte */
 .domanda-container {
   margin-bottom: 20px;
   padding: 20px;
-  border-radius: 10px;
-  background-color: #f9f9f9;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  background: linear-gradient(145deg, #ffffff, #e6e6e6);
+  box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.1), -6px -6px 12px #ffffff;
 }
 
 .domanda {
@@ -83,7 +80,7 @@ main {
 .risposta-container {
   display: flex;
   flex-direction: column;
-  gap: 15px; /* Spaziatura tra le opzioni */
+  gap: 15px;
 }
 
 label {
@@ -92,54 +89,52 @@ label {
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  gap: 10px; /* Distanza tra la checkbox e l'etichetta */
+  gap: 10px;
   padding: 10px 15px;
   border-radius: 8px;
+  background-color: #f7f9fc;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 label:hover {
-  background-color: #f0f4ff;
+  background-color: #e0e7ff;
   color: #1e3a8a;
-  transform: scale(1.05);
+  transform: translateY(-3px);
 }
 
-/* Personalizzazione delle checkbox quadrate */
-input[type="checkbox"] {
-  appearance: none; /* Rimuove la checkbox di default */
+input[type="radio"] {
+  appearance: none;
   width: 22px;
   height: 22px;
   background-color: #fff;
   border: 2px solid #ccc;
-  border-radius: 4px; /* Checkbox quadrate */
+  border-radius: 4px;  /* Rendi il bordo più angolare per il quadrato */
   position: relative;
   cursor: pointer;
-  transition: background-color 0.3s ease, border-color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
-input[type="checkbox"]:checked {
-  background-color: #1e3a8a; /* Colore blu quando selezionato */
+input[type="radio"]:checked {
+  background-color: #1e3a8a;
   border-color: #1e3a8a;
 }
 
-input[type="checkbox"]:checked::before {
+input[type="radio"]:checked::before {
   content: '';
   position: absolute;
   top: 4px;
   left: 4px;
   width: 12px;
   height: 12px;
-  background-color: white;
-  border-radius: 2px; /* "Tick" quadrato dentro la checkbox */
+  border-radius: 2px; /* Piccolo angolo arrotondato per il "check" */
+  transition: all 0.2s ease;
 }
 
-input[type="checkbox"]:focus {
-  outline: none;
-  box-shadow: 0 0 5px rgba(30, 58, 138, 0.5);
-}
 
-/* Pulsante per creare il quiz */
-.button-crea-quiz {
+
+/* Pulsanti */
+button {
   background-color: #1e3a8a;
   color: white;
   font-size: 1.2rem;
@@ -151,25 +146,25 @@ input[type="checkbox"]:focus {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.button-crea-quiz:hover {
+button:hover {
   background-color: #4f6d98;
   transform: translateY(-5px);
 }
 
-.button-crea-quiz:active {
+button:active {
   transform: translateY(0);
   background-color: #003366;
 }
 
-.button-correggi-quiz{
+.button-correggi-quiz {
   display: none;
 }
 
-.button-nuovo-quiz{
+.button-nuovo-quiz {
   display: none;
 }
 
-/* Media Queries per dispositivi mobili */
+/* Media Queries */
 @media screen and (max-width: 768px) {
   .quiz-container {
     padding: 15px;
@@ -179,7 +174,7 @@ input[type="checkbox"]:focus {
     font-size: 1.1rem;
   }
 
-  .button-crea-quiz {
+  button {
     font-size: 1rem;
     padding: 10px 25px;
   }
@@ -203,7 +198,7 @@ input[type="checkbox"]:focus {
     font-size: 1rem;
   }
 
-  .button-crea-quiz {
+  button {
     width: 100%;
     padding: 12px 20px;
   }
