@@ -3,21 +3,6 @@
 const crea =document.querySelector("[data-crea-quiz]")
 const container = document.querySelector("[data-quiz-containeer]")
 
-async function traduciTesto(testo, da, a) {
-  const response = await fetch("https://libretranslate.com/translate", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      q: testo,
-      source: da,
-      target: a,
-    }),
-  });
-  const data = await response.json();
-  return data.translatedText;
-}
 
 function nascondiPulsante(){
   crea.style.display = "none"
@@ -27,13 +12,15 @@ function numeroCasuale(nelementi) {
   return Math.floor(Math.random() * nelementi);
 }
 
-function veroFalso(rispostaContainer, rispostaEsatta){
+function veroFalso(rispostaContainer, rispostaEsatta, count){
   const checkboxTrue = document.createElement("input");
-  checkboxTrue.type = "checkbox";
+  checkboxTrue.type = "radio";
+  checkboxTrue.name= count
   checkboxTrue.id = `risposta-${Math.random().toString(36).substr(2, 9)}`;
   checkboxTrue.setAttribute('data-correct', rispostaEsatta  === "True" ? 'true' : 'false');
   const checkboxFalse = document.createElement("input");
-  checkboxFalse.type = "checkbox";
+  checkboxFalse.type = "radio";
+  checkboxFalse.name= count
   checkboxFalse.id = `risposta-${Math.random().toString(36).substr(2, 9)}`;
   checkboxFalse.setAttribute('data-correct', rispostaEsatta  === "False" ? 'true' : 'false');
   const labelTrue = document.createElement("label");
@@ -48,9 +35,10 @@ function veroFalso(rispostaContainer, rispostaEsatta){
   rispostaContainer.appendChild(checkboxFalse)
 }
 
-function inserisciRisposte(rispostaContainer, unaRisposta, rispostaEsatta){
+function inserisciRisposte(rispostaContainer, unaRisposta, rispostaEsatta, count){
   const checkboxRisposta = document.createElement("input");
-  checkboxRisposta.type = "checkbox";
+  checkboxRisposta.type = "radio";
+  checkboxRisposta.name= count
   checkboxRisposta.id = `risposta-${Math.random().toString(36).substr(2, 9)}`;
   checkboxRisposta.setAttribute('data-correct', unaRisposta === rispostaEsatta ? 'true' : 'false');
   const labelRisposta = document.createElement("label");
@@ -61,11 +49,11 @@ function inserisciRisposte(rispostaContainer, unaRisposta, rispostaEsatta){
 }
 
 
-function rispostaMultipla(rispostaContainer, risposta){
+function rispostaMultipla(rispostaContainer, risposta, count){
  let risposteTutte =[risposta.correct_answer, risposta.incorrect_answers[0],risposta.incorrect_answers[1], risposta.incorrect_answers[2]] 
  for (let i = risposteTutte.length; i > 0; i--) {
   let n = numeroCasuale(i); 
-  inserisciRisposte(rispostaContainer, risposteTutte[n],risposta.correct_answer)
+  inserisciRisposte(rispostaContainer, risposteTutte[n],risposta.correct_answer, count)
   risposteTutte.splice(n, 1);
 }
 }
@@ -84,9 +72,9 @@ function creaDomanda(risposta, counter){
   rispostaContainer.className="-container-risposta"
   domandaContainer.appendChild(rispostaContainer)
   if(risposta[counter].type == "boolean"){
-    veroFalso(rispostaContainer, risposta[counter].correct_answer)
+    veroFalso(rispostaContainer, risposta[counter].correct_answer,counter+1)
   } else if(risposta[counter].type == "multiple"){
-    rispostaMultipla(rispostaContainer, risposta[counter])
+    rispostaMultipla(rispostaContainer, risposta[counter], counter+1)
   }
 }
 
