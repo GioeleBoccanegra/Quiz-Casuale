@@ -1,7 +1,14 @@
-/* Stile di base */
+/* Reset e stile base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Corpo */
 body {
   font-family: 'Arial', sans-serif;
-  background-color: #f0f4f7;
+  background-color: #f4f7fb;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -13,7 +20,7 @@ body {
 /* Header */
 header {
   width: 100%;
-  background-color: #007bff;
+  background-color: #1e3a8a; /* Colore più scuro */
   color: white;
   text-align: center;
   padding: 20px 0;
@@ -25,7 +32,8 @@ header {
 
 h1 {
   font-size: 2.5rem;
-  margin: 0;
+  font-weight: bold;
+  letter-spacing: 1px;
 }
 
 /* Main e contenitore */
@@ -37,6 +45,7 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 20px;
 }
 
 /* Contenitore del quiz */
@@ -64,31 +73,115 @@ main {
 
 .domanda {
   font-size: 1.2rem;
-  font-weight: bold;
+  font-weight: 600;
   margin-bottom: 10px;
   color: #333333;
+  letter-spacing: 0.5px;
 }
 
 .risposta-container {
   display: flex;
   flex-direction: column;
-  gap: 10px; /* Spazio tra le opzioni */
+  gap: 12px; /* Maggiore spazio tra le opzioni */
 }
 
+/* Stile base per le etichette */
 label {
   font-size: 1rem;
-  color: #555555;
+  color: #333333;
+  cursor: pointer;
+  transition: color 0.3s ease, transform 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px; /* Distanza tra la checkbox e l'etichetta */
+  font-weight: 500;
+  padding: 5px 10px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+label:hover {
+  background-color: #e0e0e0;
+  color: #1e3a8a;
+}
+
+/* Personalizzazione delle checkbox */
+input[type="checkbox"] {
+  appearance: none; /* Rimuove la checkbox di default */
+  width: 20px;
+  height: 20px;
+  background-color: #fff;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  position: relative;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
   cursor: pointer;
 }
 
+input[type="checkbox"]:checked {
+  background-color: #1e3a8a; /* Colore di sfondo quando è selezionato */
+  border-color: #1e3a8a;
+}
+
+input[type="checkbox"]:checked::before {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 10px;
+  height: 10px;
+  background-color: #fff;
+  border-radius: 50%; /* Aggiunge un "ticking" cerchio bianco all'interno della checkbox */
+}
+
+input[type="checkbox"]:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(30, 58, 138, 0.5);
+}
+
+input[type="checkbox"]:hover {
+  border-color: #1e3a8a;
+}
+
+/* Stile delle risposte nella sezione quiz */
+.risposta-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.risposta-container label {
+  font-size: 1.1rem;
+  color: #444444;
+  background-color: #f9f9f9;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
+
+.risposta-container label:hover {
+  background-color: #e0e0e0;
+  color: #1e3a8a;
+}
+
+.risposta-container input[type="checkbox"]:checked + label {
+  background-color: #d1e7ff;
+  color: #1e3a8a;
+}
+
+/* Aggiunta di un effetto di transizione sui checkbox */
 input[type="checkbox"] {
-  margin-right: 10px;
-  accent-color: #007bff; /* Colore personalizzato per la checkbox */
+  transition: transform 0.2s ease-in-out;
+}
+
+input[type="checkbox"]:hover {
+  transform: scale(1.1); /* Leggera espansione quando l'utente passa sopra */
 }
 
 /* Pulsante per creare il quiz */
 .button-crea-quiz {
-  background-color: #007bff;
+  background-color: #1e3a8a;
   color: white;
   font-size: 1.2rem;
   padding: 12px 30px;
@@ -101,6 +194,51 @@ input[type="checkbox"] {
 }
 
 .button-crea-quiz:hover {
-  background-color: #0056b3;
+  background-color: #4f6d98;
   transform: translateY(-5px);
+}
+
+.button-crea-quiz:active {
+  transform: translateY(0);
+  background-color: #003366;
+}
+
+/* Media Queries per dispositivi mobili */
+@media screen and (max-width: 768px) {
+  .quiz-container {
+    padding: 20px;
+  }
+
+  .domanda {
+    font-size: 1.1rem;
+  }
+
+  .button-crea-quiz {
+    font-size: 1rem;
+    padding: 10px 25px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  .quiz-container {
+    width: 100%;
+    padding: 15px;
+  }
+
+  .domanda-container {
+    padding: 15px;
+  }
+
+  .domanda {
+    font-size: 1rem;
+  }
+
+  .button-crea-quiz {
+    width: 100%;
+    padding: 12px 20px;
+  }
 }
